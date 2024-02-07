@@ -32,7 +32,7 @@ export class Tab2Page implements OnInit {
 
   ngOnInit(): void {
     this.audio = new Howl({
-      src: 'https://playerservices.streamtheworl.com/api/livestream-redirect/OLP_BOGOTAAAC.aac?dist=oro_web',
+      src: 'https://playerservices.streamtheworld.com/api/livestream-redirect/OLP_BOGOTAAAC.aac?dist=oro_web',
       html5: true,
       preload: true,
       onplayerror: (soundId, err) => {

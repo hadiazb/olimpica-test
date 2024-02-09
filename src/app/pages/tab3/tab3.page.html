@@ -1,17 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Streaming Howl v1.0.8</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-loading [isOpen]="loadingIsOpen"></ion-loading>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Olimpica Stereo</ion-card-title>
+      <ion-card-subtitle>{{ isPlaying ? 'Reproduciendo...' : 'Streaming' }}</ion-card-subtitle>
+    </ion-card-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+    <ion-card-content>
+      <ion-button
+        [color]="isPlaying ? 'warning' : 'primary'"
+        (click)="isPlaying ? pause() : play()"
+      >
+        {{ isPlaying ? '||' : '▶' }}
+      </ion-button>
+      <ion-button color="success" (click)="state()">State</ion-button>
+      <ion-button color="danger" (click)="reset()" [disabled]="disableReset">Reset</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

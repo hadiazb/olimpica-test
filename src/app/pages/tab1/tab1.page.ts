@@ -7,6 +7,7 @@ import {
   IonButton,
   IonButtons,
   IonIcon,
+  NavController,
 } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../../explore-container/explore-container.component';
 
@@ -32,13 +33,18 @@ export class Tab1Page implements OnInit {
   public audio?: HTMLAudioElement;
   public audio2?: Howl;
 
-  constructor() {}
+  constructor(private navCtrl: NavController) {}
 
   ngOnInit(): void {
     this.audio = new Audio(
       'https://playerservices.streamtheworld.com/api/livestream-redirect/OLP_BOGOTAAAC.aac?dist=oro_web'
     );
     this.audio?.load();
+  }
+
+  goTab3() {
+    // Lógica para ir al Tab 3
+    this.navCtrl.navigateForward('/tabs/tab3');
   }
 
   public async start() {

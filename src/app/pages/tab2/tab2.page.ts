@@ -6,6 +6,7 @@ import {
   IonContent,
   IonButtons,
   IonButton,
+  NavController,
 } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../../explore-container/explore-container.component';
 
@@ -28,7 +29,7 @@ import { Howl } from 'howler';
 })
 export class Tab2Page implements OnInit {
   public audio?: Howl;
-  constructor() {}
+  constructor(private navCtrl: NavController) {}
 
   ngOnInit(): void {
     this.audio = new Howl({
@@ -41,6 +42,11 @@ export class Tab2Page implements OnInit {
         this.audio?.play();
       },
     });
+  }
+
+  goTab3() {
+    // Lógica para ir al Tab 3
+    this.navCtrl.navigateForward('/tabs/tab3');
   }
 
   public start() {

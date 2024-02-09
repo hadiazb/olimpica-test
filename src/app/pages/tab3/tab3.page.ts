@@ -46,11 +46,13 @@ export class Tab3Page implements OnInit {
     this.streamingService.loadStream('https://playerservices.streamtheworld.com/api/livestream-redirect/OLP_BOGOTAAAC.aac?dist=oro_web');
     // Suscribe al evento de carga de audio
     this.streamingService.audioLoadedEvent.subscribe((evt: any) => {
-      console.log(`AUDIO STATE OBS [${evt}]`);
+      console.log(`AUDIO STATE OBS [${evt.state}]`);
       if (evt.state === 'loaded') {
         console.log('Audio cargado completamente');
         // Aquí puedes realizar las acciones que necesites cuando el audio se cargue completamente
         this.ocultarCarga(); // Por ejemplo, ocultar el indicador de carga
+      } else if (evt.state === 'reset') {
+        this.mostrarCarga();
       }
     });
   }

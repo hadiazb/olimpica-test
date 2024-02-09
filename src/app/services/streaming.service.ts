@@ -80,6 +80,7 @@ export class StreamingService {
 
   restartPlayback() {
     console.log('Restart :>> Hay una instacia de audio activa...');
+    this.audioLoadedEvent.emit({state: 'reset'}); // Emite un evento cuando se intenta reiniciar el audio
     if (this.sound) {
       this.sound.stop();
       this.sound.unload();

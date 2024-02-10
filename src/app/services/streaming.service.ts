@@ -9,7 +9,7 @@ export class StreamingService {
   private sound?: Howl;
   private url!: string;
 
-  audioLoadedEvent = new EventEmitter<Object>(); // EventEmitter para emitir eventos de carga de audio
+  audioLoadedEvent = new EventEmitter<Object>(); // EventEmitter para emitir eventos de cambio de estado de la instancia del audio
   audioevtEvent: any;
 
   constructor() {
@@ -20,16 +20,16 @@ export class StreamingService {
     window.addEventListener('online', () => {
       console.log('Conexión a Internet restablecida');
       // Aquí puedes realizar acciones adicionales, como reanudar la reproducción de audio si estaba pausada debido a la pérdida de conexión.
-      this.restartPlayback();
+      this.restartPlayback(); // reinicia la instancia del audio para reconectar la reproducción
     });
 
     // Escuchar el evento 'offline'
     window.addEventListener('offline', () => {
       console.log('Conexión a Internet perdida');
-      // Aquí puedes realizar acciones adicionales, como pausar la reproducción de audio si estaba en curso.
     });
   }
 
+  // Funcion para montar instancia de audio
   loadStream(url: string) {
     this.url = url;
     this.sound = new Howl({
@@ -37,26 +37,25 @@ export class StreamingService {
       format: ['aac'],
       html5: true,
       onplayerror: (soundId, err) => {
-        console.log('Audio error :>> ', err);
+        // Aquí puedes realizar acciones adicionales en respuesta al error de reproducción,
+        // como mostrar un mensaje de error al usuario, registrar el error, etc.
+        console.log('[onplayerror] :>> ', err);
         this.restartPlayback();
       },
       onload: () => {
-        console.log('Audio cargado [OK]');
-        // Realiza acciones adicionales después de cargar la reproducción
-        // console.log('Howler :>> ', Howler);
-        // this.audioLoadedEvent.emit(this.sound?.state()); // Emite un evento cuando el audio se carga completamente
+        // Realiza acciones adicionales después de cargar el archivo de reproducción
+        console.log('Archivo de audio cargado [OK]');
       },
       onloaderror: (soundId, err) => {
-        console.error('# Error al cargar el audio:', err);
-        // Aquí puedes realizar acciones adicionales, como notificar al usuario sobre el error.
-        this.restartPlayback();
+        console.error('[onloaderror] No. Error al cargar el audio :>> ', err);
+        this.restartPlayback(); // Reiniciamos la instancia del audio
       },
       onpause: (soundId) => {
-        console.log('Audio pausado:', soundId);
         // Realiza acciones adicionales después de pausar la reproducción
+        console.log(`Audio pausado [Instance ${soundId}]`);
       },
       onplay: (soundId) => {
-        console.log('Audio Play:', soundId);
+        console.log(`Audio play [Instance ${soundId}]`);
         this.audioLoadedEvent.emit({state: this.sound?.state()}); // Emite un evento cuando el audio se empieza a reproducir
       }
     });
@@ -75,17 +74,16 @@ export class StreamingService {
   }
 
   getState() {
-    console.log(`AUDIO STATE [${this.sound?.state()}]`);
+    console.log(`Audio state [${this.sound?.state()}]`);
   }
 
   restartPlayback() {
-    console.log('Restart :>> Hay una instacia de audio activa...');
-    this.audioLoadedEvent.emit({state: 'reset'}); // Emite un evento cuando se intenta reiniciar el audio
+    this.audioLoadedEvent.emit({state: 'reset'}); // Emite un evento cuando se reinicia la instancia del audio
     if (this.sound) {
-      this.sound.stop();
-      this.sound.unload();
+      this.sound.stop(); // Detiene el audio
+      this.sound.unload(); // Desmonta la instancia actual
       this.sound = undefined;
-      this.loadStream(this.url); // Vuelve a cargar la reproducción
+      this.loadStream(this.url); // Vuelve a cargar la reproducción [Montar instancia de audio]
       this.playStream();
     }
   }

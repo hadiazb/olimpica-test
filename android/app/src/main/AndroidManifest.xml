@@ -9,6 +9,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- Definir el canal de notificación con un sonido silencioso -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="default_notification_channel_id" />
+
         <service
             android:name=".ForegroundService"
             android:enabled="true"

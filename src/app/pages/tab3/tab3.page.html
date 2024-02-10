@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Streaming Howl v1.0.8</ion-title>
+    <ion-title>Streaming Howl v1.1.5</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,13 +14,14 @@
 
     <ion-card-content>
       <ion-button
-        [color]="isPlaying ? 'warning' : 'primary'"
+        [color]="isPlaying ? 'secondary' : 'primary'"
         (click)="isPlaying ? pause() : play()"
+        style="color: white;"
       >
-        {{ isPlaying ? '||' : '▶' }}
+      {{ isPlaying ? '||' : '▶' }}
       </ion-button>
-      <ion-button color="success" (click)="state()">State</ion-button>
-      <ion-button color="danger" (click)="reset()" [disabled]="disableReset">Reset</ion-button>
+      <ion-button color="success" (click)="state()">S<span style="text-transform: lowercase;">tate</span></ion-button>
+      <ion-button color="danger" (click)="reset()" [disabled]="disableReset">R<span style="text-transform: lowercase;">eset</span></ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

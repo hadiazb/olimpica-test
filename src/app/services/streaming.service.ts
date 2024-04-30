@@ -57,7 +57,10 @@ export class StreamingService {
       onplay: (soundId) => {
         console.log(`Audio play [Instance ${soundId}]`);
         this.audioLoadedEvent.emit({state: this.sound?.state()}); // Emite un evento cuando el audio se empieza a reproducir
-      }
+      },
+      onend: (soundId) => {
+        console.log(`Audio End [Instance ${soundId}] --> ${this.sound?.state()}`);
+      },
     });
   }
 

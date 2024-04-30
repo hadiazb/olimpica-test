@@ -16,7 +16,9 @@ import {
   IonCardSubtitle,
   IonCardContent,
   IonCardTitle,
-  IonCard, IonIcon } from '@ionic/angular/standalone';
+  IonCard,
+  IonIcon,
+} from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../../explore-container/explore-container.component';
 
 @Component({
@@ -29,7 +31,7 @@ import { ExploreContainerComponent } from '../../explore-container/explore-conta
   ],
   imports: [
     CommonModule,
-    IonIcon, 
+    IonIcon,
     IonCard,
     IonCardTitle,
     IonCardContent,
@@ -61,6 +63,7 @@ export class Tab3Page implements OnInit {
     console.log('Cargando audio [...]');
     this.streamingService.loadStream(
       'https://playerservices.streamtheworld.com/api/livestream-redirect/OLP_BOGOTAAAC.aac?dist=oro_web'
+      // 'https://api.spreaker.com/v2/episodes/47743182/play.mp3'
     );
     // Se suscribe al observable para saber el estado de la instancia del audio
     this.streamingService.audioLoadedEvent.subscribe((evt: any) => {
@@ -88,7 +91,12 @@ export class Tab3Page implements OnInit {
   // Activar ejecución del audio en segundo plano
   putExecutionBackground() {
     try {
-      this.foregroundService.start('Olimpica Stereo', 'Reproduciendo', undefined, 3);
+      this.foregroundService.start(
+        'Olimpica Stereo',
+        'Reproduciendo',
+        undefined,
+        3
+      );
     } catch (error) {
       console.log('error :>> ', error);
     }
